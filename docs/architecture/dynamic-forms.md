@@ -27,7 +27,8 @@
 | Системные значения | hidden/system value |
 
 Employee, document reference и справочники используют существующее корпоративное приложение через [providers](existing-app-boundary.md).
-MVP требует основные типы, required, conditions, references и attachments.
+Product Scope включает основные типы, required, conditions, references и attachments.
+[ROADMAP](../../ROADMAP.md) относит базовую форму к M02, expressions к M04, защищенные attachments к M07.
 Исходник не задает точный минимальный перечень типов для M02.
 
 ## Условия
@@ -42,7 +43,8 @@ MVP требует основные типы, required, conditions, references �
 Исходник требует required, min/max, regexp, custom expression, существование reference и cross-field validation.
 Backend MUST проверять правила, влияющие на допустимость данных.
 Frontend может давать предварительную обратную связь.
-Expression language требует решения D-09 в [Workflow Definition](workflow-definition.md).
+Реализация Expression Language требует решения D-09 в [Workflow Definition](workflow-definition.md#expression-language).
+Обязательные требования декларативности, безопасности и запрета произвольного кода действуют независимо от этого выбора.
 
 ## Предзаполнение
 

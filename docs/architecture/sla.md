@@ -6,7 +6,7 @@
 ## Виды SLA
 
 Полная модель предусматривает First response, Resolution, Task SLA и Approval SLA.
-MVP явно включает Resolution SLA и срок Task.
+Milestone Scope [M08](../milestones/M08-sla.md) включает Resolution SLA и срок Task.
 First response и Approval SLA сохраняются в модели; обязательность для пилота требует решения ниже.
 
 ## Business Calendar

@@ -19,14 +19,14 @@ Runtime и публикация уже доказаны. Теперь editor м�
 
 [M02](M02-service-designer.md), принятый [ADR-003](../adr/ADR-003-workflow-definition-format.md).
 
-## Scope
+## Milestone Scope
 
 Canvas, палитра, Edge и панель настроек для Start, Human Task и End Success.
 Validate, Test Run, preview и публикация через существующий Service Designer.
 Mini-map, zoom, execution preview и история изменений входят в целевой UX; их порядок уточняется внутри milestone.
 Термин End в кратком плане означает здесь End Success. End Failure появится в M04.
 
-## Out of Scope
+## Out of Scope for M03
 
 Approval, Condition, Switch, Parallel, Subflow, произвольные циклы и новые правила исполнения.
 

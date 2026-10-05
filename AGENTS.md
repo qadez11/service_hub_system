@@ -19,7 +19,9 @@
 
 ## Архитектура и workflow
 
-- Published Service Release immutable; Request привязан к конкретному Service Release.
+- Published Service Release MUST быть immutable.
+- При создании Request система MUST выбрать ровно один Service Release. После создания `Request.service_release` MUST NOT изменяться на всем сроке жизни Request.
+- Основной контракт — [Service Release](docs/architecture/service-release.md).
 - Runtime не читает исполняемые правила из Service Draft или current_release старой Request.
 - Workflow Studio — редактор; Workflow Runtime — независимый серверный исполнитель.
 - Request, Workflow Execution и Node Run имеют разные роли.
@@ -57,7 +59,7 @@ M07 не разрешает откладывать базовую защиту �
 
 1. Нужно изменить продуктовую семантику, которой нет в PRODUCT и связанных источниках.
 2. Требование противоречит существующему ADR.
-3. Изменение нарушает immutable Service Release.
+3. Изменение нарушает immutable Service Release или неизменяемую связь Request → Service Release.
 4. Security реализуется только во frontend.
 5. Slice неожиданно требует переписать большую часть системы.
 6. Scope существенно превышает milestone.

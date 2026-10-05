@@ -8,7 +8,10 @@
 Request хранит пользовательский контекст.
 Workflow Execution хранит техническое состояние графа.
 Это разделение позволяет позднее добавить restart/recovery без новой пользовательской Request.
-Workflow Runtime использует опубликованный Workflow Definition из Service Release.
+Workflow Runtime MUST исполнять Request по Service Release, выбранному при ее создании.
+Он использует опубликованный Workflow Definition этого Release.
+После создания Request значение `Request.service_release` MUST NOT изменяться, включая retry, recovery и ручное вмешательство.
+Основной контракт находится в [Service Release](service-release.md).
 Workflow Studio не участвует в механизме исполнения.
 
 ## Node Run

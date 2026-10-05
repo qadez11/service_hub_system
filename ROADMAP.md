@@ -1,9 +1,19 @@
-# ROADMAP — от первого пути к полному MVP
+# ROADMAP — порядок реализации Product Scope
 
 Это rolling-wave plan по исходному PRODUCT draft 0.1 и заданной последовательности M00–M10.
 План не объявляет возможности реализованными и не задает календарные сроки.
 M00/M01 детализированы; M02/M03 имеют предметные Slice; M04/M05 описаны на среднем уровне.
 M06–M10 требуют уточнения перед началом зависимой работы.
+
+## Источники и порядок планирования
+
+```text
+Product Scope → Roadmap → Milestone → Slice → ExecPlan → Implementation
+```
+
+[PRODUCT](PRODUCT.md) задает Product Scope. Этот документ — основной источник порядка реализации.
+Документы Milestone задают Milestone Scope и Out of Scope for Mxx.
+Исключение из конкретного Milestone MUST NOT трактоваться как удаление функции из Product Scope.
 
 ## Последовательность
 
@@ -22,7 +32,7 @@ flowchart LR
 ```
 
 Каждый milestone зависит от предыдущего exit gate и перечисленных в его документе решений.
-M01 — маленький работающий путь. Полный MVP достигается только после общего gate ниже.
+M01 доказывает первый работающий путь. Готовность к пилоту проверяется по общим критериям к завершению M10 ниже.
 Исходные этапы 0–6 перегруппированы в M00–M10; требования сохранены по темам.
 M00 описывает модель, но не реализует business workflow.
 Atomic claim перенесен в первый работающий путь, поскольку Team queue уже создает риск гонки.
@@ -42,7 +52,7 @@ Budget не является оценкой часов, стоимости ил�
 
 ## Обзор milestone
 
-| Milestone | Цель | Пользовательский результат | Возможности | Не входит | Зависимости | Exit criteria | AI Budget |
+| Milestone | Цель | Пользовательский результат | Milestone Scope | Out of Scope for Mxx | Зависимости | Exit criteria | AI Budget |
 |---|---|---|---|---|---|---|---|
 | [M00 — Foundation](docs/milestones/M00-foundation.md) | Стабильная основа | Разработчик запускает app и проверки | Dev environment, Frappe UI, tests/lint/CI, skills, documentation, provider boundary | Business workflow | Документы и доступ к dev site | Воспроизводимый запуск; проверки и граница данных подтверждены | L |
 | [M01 — Request Happy Path](docs/milestones/M01-request-happy-path.md) | Один полный путь | Requester получает результат одной Task | Service Release, Request, runtime, queue, atomic claim, safe view | Studio, Approval, Parallel, advanced SLA/ACL | M00 и минимальные contracts | E2E, concurrency, permissions и повтор jobs проверены | XL |
@@ -54,14 +64,14 @@ Budget не является оценкой часов, стоимости ил�
 | [M07 — Security](docs/milestones/M07-security.md) | Расширенная защита | Доступ к полям и файлам соблюдает policy | Field ACL, participants, attachments, API/notification/export filtering | Произвольный policy language | M06; policy matrix | Негативная матрица всех каналов проходит | XL |
 | [M08 — SLA](docs/milestones/M08-sla.md) | Учет сроков | Команда видит риски SLA | Calendar, SLA, pause/resume, Wait/Timer, escalation | Capacity planning | M07; clock contract | Сроки и паузы воспроизводимы; timers переживают restart | XL |
 | [M09 — Knowledge Base](docs/milestones/M09-knowledge-base.md) | Контекстные знания | Пользователь находит разрешенную помощь | Collections, editor, revisions, publish, search, links | AI search, неутвержденная Wiki migration | M08; Wiki/search decisions | Статьи доступны по policy в контексте Service/Node | L |
-| [M10 — Hardening](docs/milestones/M10-hardening.md) | Готовность пилота | Четыре Service проходят полную приемку | Audit, observability, recovery, actions, performance, analytics, CSAT | Advanced platform features после MVP | M09; нагрузка и pilot contracts | Общий Definition of Done MVP доказан | XL |
+| [M10 — Hardening](docs/milestones/M10-hardening.md) | Готовность пилота | Четыре Service проходят полную приемку | Audit, observability, recovery, actions, performance, analytics, CSAT | Будущие платформенные расширения вне M00–M10 | M09; нагрузка и pilot contracts | Общие критерии пилота подтверждены | XL |
 
-Полные Goal, User Result, Why Now, Scope, tests, risks, decisions и Slice находятся в документах milestone.
+Полные Goal, User Result, Why Now, Milestone Scope, tests, risks, decisions и Slice находятся в документах milestone.
 Перед каждым сложным Slice нужен [.agent/PLANS.md](.agent/PLANS.md).
 
 ## Сквозные гарантии с первого применимого Slice
 
-- Неизменяемость и привязка Service Release действуют с M01; M02 добавляет полноценный редактор и publish.
+- Published Service Release MUST быть immutable. После создания Request ее связь с выбранным Service Release MUST NOT изменяться. Оба инварианта действуют с M01; M02 добавляет полноценный редактор и publish.
 - Server-side permissions и safe projection действуют с M01; M07 расширяет модель.
 - Atomic claim входит в M01 вместе с очередью.
 - Lifecycle audit появляется вместе с действиями; M10 расширяет эксплуатационную полноту.
@@ -72,7 +82,7 @@ Budget не является оценкой часов, стоимости ил�
 Полный publish checklist и ранний ограниченный профиль требуют [D-05](docs/product/service-designer.md).
 Открытый вопрос блокирует зависимый Slice, а не разрешает временно нарушить инвариант.
 
-## Покрытие исходного MVP
+## Покрытие Product Scope в M00–M10
 
 | Исходная область | Где достигается |
 |---|---|
@@ -105,16 +115,16 @@ Budget не является оценкой часов, стоимости ил�
 | Полный список типов/validations формы | [Dynamic forms](docs/architecture/dynamic-forms.md) | Базовый профиль M02; остальные типы — отдельные будущие Slice |
 | First response и Approval SLA | [SLA](docs/architecture/sla.md) | D-19 в M08 |
 | Owner-of-reference, expression, round-robin assignment | [Assignment](docs/architecture/task-assignment.md) | Отдельные Slice после минимальных назначений; сроки не утверждены |
-| Least-loaded, absence и delegation | [Assignment](docs/architecture/task-assignment.md) | После MVP; ручное reassignment доступно раньше |
+| Least-loaded, absence и delegation | [Assignment](docs/architecture/task-assignment.md) | Вне Milestone Scope M00–M10; ручное переназначение доступно раньше |
 | Subflow и Repeat Block | [Node](docs/architecture/workflow-nodes.md) | D-03 до включения; ранний scope их не предполагает |
 | Permission debugging | [Permissions](docs/architecture/permissions.md) | M07 |
 | Search по Service, знаниям и отдельно Request | [Integrations](docs/architecture/integrations.md) | D-20 до реализации каждого поискового представления |
 | Архивация Service и защита исторических объектов | [Service](docs/product/service-model.md), [данные](docs/architecture/domain-model.md) | Применять с появлением объекта; операционный UX до пилота |
 | 15 экранов clickable prototype | [Portal](docs/product/service-portal.md) | Отдельная UX-задача; не prerequisite backend M01 |
 
-## Не входит в первый MVP
+## За пределами Milestone Scope M00–M10
 
-Исходные исключения сохранены:
+Исходные исключения из ближайшего плана сохранены. Они не удаляют будущие возможности из Product Scope:
 
 - полноценный BPMN и произвольный code node;
 - сложные циклы и compensation transactions;
@@ -128,7 +138,7 @@ Budget не является оценкой часов, стоимости ил�
 
 Запрос anonymous/external requests остается [Q08](docs/product/overview.md), а не принятым расширением внутреннего продукта.
 
-## После MVP
+## Будущие возможности Product Scope
 
 | Направление | Сохраненные возможности исходника |
 |---|---|
@@ -141,19 +151,19 @@ Budget не является оценкой часов, стоимости ил�
 | Каналы | Mobile/PWA, Telegram/Teams/Slack |
 | Управление портфелем | Service cost accounting, service portfolio management |
 | Масштаб | Отдельные хранилища Audit/Search при обоснованной нагрузке |
-| Работа с активными процессами | Migrate Execution с target release, compatibility check, node mapping, audit и dry-run после отдельного решения |
+| Работа с активными процессами | [Migrate Execution](docs/architecture/service-release.md) — будущая функция с неутвержденной семантикой. Она MUST NOT разрешать изменение `Request.service_release`; изменение инварианта потребует отдельного явного ADR |
 
 Пункты не имеют календарных дат или обещанного состава выпуска.
-Subflow также имеет спорную рекомендацию для MVP: [D-03](docs/architecture/workflow-nodes.md).
+Очередность Subflow остается открытой: [D-03](docs/architecture/workflow-nodes.md).
 Эта таблица не решает противоречие вместо владельца продукта.
 
-## Definition of Done полного MVP
+## Общие критерии пилота к завершению M10
 
-MVP готов к пилоту, когда доказаны все исходные условия:
+Готовность к пилоту требует выполнения всех условий:
 
 1. Владелец собирает новую поддерживаемую Service без кода.
 2. Публикация создает immutable Service Release.
-3. Request фиксирует конкретный Service Release.
+3. При создании Request система выбирает ровно один Service Release. Ссылка остается неизменной на всем сроке жизни Request.
 4. Работают последовательные и параллельные workflow.
 5. Работают Approval и Request Information.
 6. Task назначаются через Team queue; claim атомарен.
@@ -166,4 +176,4 @@ MVP готов к пилоту, когда доказаны все исходн�
 13. Четыре [эталонные Service](docs/product/requests.md) проходят end-to-end tests.
 
 [Пилот](docs/product/overview.md) требует подтвержденных владельцев, данных, каналов и интеграционных действий.
-M01 не заменяет этот gate и не обязан содержать все возможности полного MVP.
+M01 имеет собственный Milestone Scope. Общие критерии пилота не расширяют его границы.

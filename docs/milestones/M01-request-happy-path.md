@@ -21,7 +21,7 @@ Requester видит безопасный статус и результат в 
 [M00](M00-foundation.md) и утвержденные минимальные решения по D-02, D-05, D-07 и D-22.
 Для работы нужны Requester, два исполнителя и Team из разрешенной модели identity.
 
-## Scope
+## Milestone Scope
 
 Одна тестовая Service, один опубликованный Service Release и небольшая статическая typed form.
 Статический Workflow Definition: Start → Human Task → End Success.
@@ -42,7 +42,7 @@ flowchart LR
   E --> O[Результат Requester]
 ```
 
-## Out of Scope
+## Out of Scope for M01
 
 Visual Workflow Studio, полный Service Designer, Approval, Parallel, N_OF_M, расширенный SLA и полный field ACL designer.
 Knowledge Base, Subflow, marketplace, AI automation и сложная аналитика не входят.
@@ -56,7 +56,7 @@ Knowledge Base, Subflow, marketplace, AI automation и сложная анали
 
 | Slice | Вертикальный результат | Проверка завершения | Budget |
 |---|---|---|---|
-| M01.1 Минимальная модель | Сохранены Service, Service Release и связанные данные первого сценария | Связи и ограничение immutable проверены; схема взята из утвержденного решения | M |
+| M01.1 Минимальная модель | Сохранены Service, Service Release и связанные данные первого сценария | Неизменяемость Release и связи Request → Service Release проверена; схема взята из утвержденного решения | M |
 | M01.2 Тестовая Service | Requester открывает описание и статическую форму | Он видит ожидаемый результат; используется конкретный Service Release | S |
 | M01.3 Submit Request | Разрешенный Requester отправляет форму и получает свою Request | Backend валидирует ввод, фиксирует Service Release, исключает чужое чтение | M |
 | M01.4 Запуск исполнения | Submit приводит к Start и Human Task | Сохранены Workflow Execution/Node Run; job повтор не создает дубль Task | M |
@@ -75,7 +75,7 @@ Knowledge Base, Subflow, marketplace, AI automation и сложная анали
 ## Acceptance Criteria
 
 1. Requester выбирает тестовую Service и отправляет разрешенные данные.
-2. Система создает одну Request с прямой ссылкой на Service Release.
+2. Система создает одну Request с прямой ссылкой ровно на один Service Release. Ссылка MUST NOT изменяться на всем сроке жизни Request.
 3. Runtime создает Workflow Execution, Node Run и Task в нужной Team queue.
 4. При конкурентном claim только один исполнитель становится Assignee.
 5. Assignee сохраняет результат и завершает Task.
@@ -87,6 +87,7 @@ Knowledge Base, Subflow, marketplace, AI automation и сложная анали
 
 ## Required Tests
 
+- Неизменяемость: сервер отвергает изменение `Request.service_release`, включая действие администратора и изменение завершенной Request.
 - Integration: сохранение цепочки Service Release → Request → Workflow Execution → Node Run → Task.
 - Concurrency: два независимых claim одной Task; один успешный audit event.
 - Permission: чужой Requester, посторонняя Team, completion неуполномоченным пользователем.
@@ -106,7 +107,7 @@ XL. Нельзя поручать как одну AI-задачу; выполн�
 Сквозной сценарий проходит от выбора Service до результата Requester.
 Concurrency, permissions и повторная доставка проверены.
 Нет скрытой зависимости от открытого Workflow Studio.
-Дефекты, нарушающие инварианты пути, устранены; M01 не объявляется полным MVP.
+Дефекты, нарушающие инварианты пути, устранены. Общие критерии пилота проверяются к завершению M10.
 
 ## Known Risks
 

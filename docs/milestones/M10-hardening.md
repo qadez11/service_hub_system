@@ -5,7 +5,7 @@
 
 ## Goal
 
-Подготовить полный MVP к пилоту и проверить надежность всех реализованных механизмов.
+Подготовить результаты M01–M10 к пилоту и проверить надежность всех реализованных механизмов.
 
 ## User Result
 
@@ -19,13 +19,13 @@
 
 [M09](M09-knowledge-base.md), все предшествующие exit criteria и утвержденный профиль пилота.
 
-## Scope
+## Milestone Scope
 
 Расширение audit и observability; retries; idempotency hardening; workflow debugging; manual intervention; performance; analytics; CSAT. Ограниченные actions пилота завершаются по Q14.
 
-## Out of Scope
+## Out of Scope for M10
 
-Универсальный BPMN, marketplace, AI automation, process mining, child services и прочие возможности после MVP.
+Универсальный BPMN, marketplace, AI automation, process mining, child services и прочие будущие возможности вне Milestone Scope M00–M10.
 
 ## Architecture Involved
 
@@ -51,7 +51,7 @@
 
 ## Acceptance Criteria
 
-Выполнен общий MVP gate из ROADMAP. Повтор job не дублирует эффект. Recovery сохраняет Request и audit. Метрики измерены на согласованном профиле.
+Выполнены общие критерии пилота из [ROADMAP](../../ROADMAP.md). Повтор job не дублирует эффект. Recovery сохраняет Request и audit. Метрики измерены на согласованном профиле.
 
 ## Required Tests
 
@@ -63,7 +63,7 @@ XL. Перед ExecPlan нужно уточнить и дополнить мал
 
 ## Exit Criteria
 
-Все пункты Definition of Done MVP подтверждены доказательствами. Риски пилота явны. Нерешенные вопросы не скрыты под завершенным milestone.
+Все общие критерии пилота из [ROADMAP](../../ROADMAP.md) подтверждены доказательствами. Риски пилота явны. Нерешенные вопросы не скрыты под завершенным milestone.
 
 ## Known Risks
 

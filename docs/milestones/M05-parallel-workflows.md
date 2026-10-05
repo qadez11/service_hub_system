@@ -19,11 +19,11 @@
 
 [M04](M04-approvals-and-conditions.md), решения по Join, коллективному Approval и mapping Public Status.
 
-## Scope
+## Milestone Scope
 
 Parallel Split; Join ALL/ANY/N_OF_M; политики cancel/continue; коллективное Approval; однократное продвижение Join; безопасный публичный результат.
 
-## Out of Scope
+## Out of Scope for M05
 
 Произвольные loops, compensation, child requests и полноценный Subflow.
 

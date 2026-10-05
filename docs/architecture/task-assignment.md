@@ -12,12 +12,12 @@ Human Task и Approval создают Task.
 
 ## Assignment rules
 
-| Способ | Scope исходника |
+| Способ | Milestone Scope по ROADMAP |
 |---|---|
-| Конкретный user | MVP |
-| Team queue | MVP |
-| Role | MVP |
-| Manager of requester | MVP |
+| Конкретный user | M04 |
+| Team queue | M01 |
+| Role | M04 |
+| Manager of requester | M04 |
 | Owner of referenced object | Полная модель; срок не задан |
 | User из expression | Полная модель; срок не задан |
 | Round-robin | Полная модель; срок не задан |
@@ -50,7 +50,8 @@ Server-side правило может учитывать срочность Requ
 
 ## Отсутствие и делегирование
 
-Для MVP исходник допускает ручное переназначение менеджером.
+Исходник допускает ручное переназначение менеджером.
+[ROADMAP](../../ROADMAP.md) относит уточнение операций команды к M10.
 Будущая модель включает out-of-office, acting manager, delegation period и substitute approver.
 Ролевое описание согласующего допускает делегирование только по разрешенной политике.
 

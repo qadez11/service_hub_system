@@ -7,7 +7,7 @@
 
 - [PRODUCT](PRODUCT.md): что строим и для кого.
 - [ARCHITECTURE](ARCHITECTURE.md): компоненты и архитектурные границы.
-- [ROADMAP](ROADMAP.md): путь M00–M10 и критерии полного MVP.
+- [ROADMAP](ROADMAP.md): порядок M00–M10 и общие критерии пилота.
 - [AGENTS](AGENTS.md): инструкция для Codex.
 - [ExecPlan](.agent/PLANS.md): подготовка одного Slice.
 

@@ -19,11 +19,11 @@ Requester находит помощь, исполнитель видит инс�
 
 [M08](M08-sla.md), решения о Wiki и backend поиска.
 
-## Scope
+## Milestone Scope
 
 Collections, иерархия, Knowledge Article, редактор, revisions, публикация, permissions, поиск, связи Service/Node, FAQ и inline help.
 
-## Out of Scope
+## Out of Scope for M09
 
 AI search, AI assistant и неутвержденная миграция всей корпоративной Wiki.
 

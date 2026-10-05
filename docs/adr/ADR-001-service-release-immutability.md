@@ -12,8 +12,15 @@ Accepted
 
 ## Решение
 
-Опубликованный Service Release неизменяем. Request хранит прямую ссылку на конкретный Service Release.
-Runtime исполняет его правила независимо от current_release и Service Draft.
+Published Service Release MUST быть immutable.
+При создании Request система MUST выбрать ровно один Service Release.
+Request MUST сохранить прямую ссылку на него на весь срок своей жизни.
+После создания Request значение `Request.service_release` MUST NOT изменяться.
+Неизменяемость Release и неизменяемость связи Request → Service Release — отдельные инварианты.
+Новый Service Release MUST применяться только к новым Request.
+Редактирование Service или новая публикация MUST NOT менять правила существующей Request.
+Workflow Runtime MUST исполнять правила Service Release, выбранного при создании Request.
+Основной технический контракт находится в [Service Release](../architecture/service-release.md).
 
 ## Причины
 
@@ -23,12 +30,15 @@ Runtime исполняет его правила независимо от curre
 
 Изменение исполняемых правил требует новой публикации. Старые Service Release остаются доступны runtime.
 Integration secrets не входят в snapshot. Контракты внешних ссылок требуют отдельного решения D-08.
-Миграция исполнения по умолчанию не поддерживается. Будущее исключение требует отдельного ADR.
+Migrate Execution остается будущей функцией с неутвержденной семантикой.
+Она MUST NOT считаться исключением из инварианта Request → Service Release.
+Изменение этого инварианта потребует отдельного явного ADR.
+До принятия такого ADR `Request.service_release` MUST оставаться неизменяемой.
 
 ## Альтернативы
 
 Чтение текущего Service Draft или current_release для старой Request отвергнуто исходником.
-Автоматическое переключение старых Request на новую версию не допускается в MVP.
+Автоматическое и ручное переключение существующей Request на другой Service Release запрещено.
 
 ## Связанные документы
 

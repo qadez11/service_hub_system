@@ -1,7 +1,8 @@
 # ExecPlan для одного Slice
 
 ExecPlan описывает одну небольшую вертикальную задачу.
-Он связывает PRODUCT → ARCHITECTURE → ROADMAP → MILESTONE → SLICE → EXEC PLAN → IMPLEMENTATION.
+Он связывает Product Scope → Roadmap → Milestone → Slice → ExecPlan → Implementation.
+ARCHITECTURE задает технические инварианты.
 Он не заменяет продуктовые требования и ADR.
 
 ## Когда составлять
@@ -77,7 +78,8 @@ ExecPlan описывает одну небольшую вертикальную
 ### Migration Impact
 
 Опиши влияние на существующие данные и порядок совместимого развертывания.
-Не добавляй автоматическую миграцию Request на новый Service Release.
+После создания Request значение `Request.service_release` MUST NOT изменяться.
+[Контракт Service Release](../docs/architecture/service-release.md) действует и для автоматических, и для ручных операций.
 
 ### Tests
 

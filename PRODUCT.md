@@ -8,8 +8,11 @@
 ## Как читать документацию
 
 ```text
-PRODUCT → ARCHITECTURE → ROADMAP → MILESTONE → SLICE → EXEC PLAN → IMPLEMENTATION
+Product Scope → Roadmap → Milestone → Slice → ExecPlan → Implementation
 ```
+
+PRODUCT задает Product Scope. ARCHITECTURE задает технические инварианты.
+[ROADMAP](ROADMAP.md) определяет порядок реализации. Документы Milestone задают Milestone Scope.
 
 | Читатель | Начальный маршрут |
 |---|---|
@@ -127,8 +130,12 @@ Request имеет один номер, историю, Public Status, публ�
 ### Опубликованные правила стабильны
 
 Published Service Release MUST быть immutable.
-Новая Request MUST ссылаться на конкретный Service Release.
-Редактирование Service не меняет правила уже запущенной Request.
+При создании Request система MUST выбрать ровно один Service Release.
+Request MUST сохранить ссылку на него на весь срок своей жизни.
+После создания Request значение `Request.service_release` MUST NOT изменяться.
+Новый Service Release MUST применяться только к новым Request.
+Редактирование Service или новая публикация MUST NOT менять правила существующей Request.
+Workflow Runtime MUST исполнять Request по Service Release, выбранному при ее создании.
 Точный контракт находится в [Service Release](docs/architecture/service-release.md).
 
 ### Внутреннее исполнение скрыто
@@ -149,6 +156,11 @@ Node Run, технические ошибки, внутренние Task и Inte
 Workflow Studio редактирует Workflow Definition.
 Workflow Runtime исполняет опубликованное определение независимо от браузера.
 Техническая модель находится в [ARCHITECTURE](ARCHITECTURE.md).
+
+Expression Language MUST быть декларативной.
+Expression Language MUST быть безопасной.
+Она MUST NOT предоставлять возможность исполнения произвольного server-side Python или другого произвольного кода.
+Выбор реализации остается открытым: [обязательный контракт и D-09](docs/architecture/workflow-definition.md#expression-language).
 
 ### Работа имеет одного владельца claim
 
@@ -257,7 +269,7 @@ Service Hub не создает независимые копии этих maste
 Наличие рядом itnovel_common само по себе не доказывает готовность интеграционного контракта.
 [Граница app](docs/architecture/existing-app-boundary.md) и [ADR-004](docs/adr/ADR-004-existing-app-boundary.md) фиксируют ответственность.
 
-## Границы первого результата и MVP
+## Первый проверяемый результат
 
 M01 доказывает один путь:
 
@@ -265,17 +277,28 @@ M01 доказывает один путь:
 Service → Service Release → Request → Workflow Execution → Human Task → результат
 ```
 
-Для него не нужен visual Workflow Studio.
 Одна небольшая Service должна пройти путь целиком.
-M01 не включает Parallel, advanced SLA, полный ACL designer или Knowledge Base.
 
-Полный MVP шире M01.
-Он включает Service Designer, последовательные и параллельные workflow, Approval, коммуникацию, server-side ACL, SLA, аудит, recovery и Knowledge Base.
-Его приемка требует четырех эталонных Service.
-[ROADMAP](ROADMAP.md) — основной источник состава, исключений и Definition of Done MVP.
+Out of Scope for M01:
 
-Будущие возможности не удаляются из модели только потому, что не входят в MVP.
-Subflow, child services, AI, внешние каналы и платформенные расширения сохраняются в roadmap с явной очередностью или открытым решением.
+- визуальный Workflow Studio — M03;
+- Parallel — M05;
+- расширенный SLA — M08;
+- полный ACL designer — вне M01; расширенная серверная модель доступа — M07;
+- Knowledge Base — M09;
+- другие возможности поздних Milestone, включая редактор Service Draft и формы (M02), Approval (M04), коммуникацию (M06) и расширенные операции recovery (M10).
+
+Эти возможности остаются в Product Scope.
+Product Scope включает Service Designer, последовательные и параллельные workflow, Approval, коммуникацию, server-side ACL, SLA, аудит, recovery и Knowledge Base.
+[ROADMAP](ROADMAP.md) задает порядок реализации и общие критерии пилота к завершению M10.
+Эти критерии требуют четырех эталонных Service.
+[M01](docs/milestones/M01-request-happy-path.md) определяет Milestone Scope первого результата.
+
+Subflow, child services, AI, внешние каналы и платформенные расширения сохраняются как будущие возможности.
+Их очередность или открытое решение указаны в ROADMAP.
+Migrate Execution остается будущей функцией с неутвержденной семантикой.
+Она MUST NOT считаться разрешением изменить `Request.service_release`.
+Изменение этого инварианта потребует отдельного явного ADR: [контракт Service Release](docs/architecture/service-release.md).
 
 ## Нефункциональные ожидания
 

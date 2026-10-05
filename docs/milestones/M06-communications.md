@@ -19,11 +19,11 @@ Runtime поддерживает ожидания и ветвление. Ком�
 
 [M05](M05-parallel-workflows.md). Базовые permissions уже действуют; M07 расширяет их.
 
-## Scope
+## Milestone Scope
 
 Request Information; Public Message; Internal Note; Send Message; безопасный notification context; каналы пилота; сохранение черновика Request после решения D-04.
 
-## Out of Scope
+## Out of Scope for M06
 
 Telegram/Teams/Slack по умолчанию, неутвержденные email approvals и attachments без access policy. Учет SLA pause/resume завершается в M08.
 

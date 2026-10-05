@@ -22,7 +22,7 @@
 [PRODUCT](../../PRODUCT.md), [ARCHITECTURE](../../ARCHITECTURE.md) и [ADR-004](../adr/ADR-004-existing-app-boundary.md).
 Доступ к утвержденному dev site и корпоративной документации требуется до интеграционной проверки.
 
-## Scope
+## Milestone Scope
 
 - Проверить app, Bench, dev site, Frappe UI и frontend entry point.
 - Зафиксировать версии, команды запуска, test/lint/build и ограничения среды.
@@ -40,7 +40,7 @@ Frontend использует Vue 3/Frappe UI/Vite/TypeScript и требует 
 Собственный CI и бизнес-тесты в просмотренном дереве не обнаружены.
 Существующие незакоммиченные изменения нужно изучить перед продолжением.
 
-## Out of Scope
+## Out of Scope for M00
 
 Service Designer, business workflow, бизнес-DocType Request/Task, migrations корпоративных данных и реальные integration actions.
 M00 может описать модель следующего milestone, но не реализует ее.

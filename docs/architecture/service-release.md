@@ -3,16 +3,28 @@
 Основание: исходный PRODUCT draft 0.1, разделы 7, 26.1, 30–32, 45, 51.
 
 
-## Инвариант
+## Инварианты
+
+Этот документ — основной технический источник правил неизменяемости Service Release и связи Request → Service Release.
+Это два отдельных инварианта.
+
+### Неизменяемость опубликованных правил
 
 Published Service Release MUST быть immutable.
-Request MUST хранить прямую ссылку ровно на один Service Release.
-Workflow Runtime MUST читать правила этого Service Release.
-Он MUST NOT вычислять правила старой Request через `service.current_release` или Service Draft.
-
 Изменение формы, workflow, SLA или access policy требует нового Service Release.
-Service Draft не меняет уже опубликованные правила.
-[ADR-001](../adr/ADR-001-service-release-immutability.md) фиксирует это решение.
+
+### Неизменяемость связи Request → Service Release
+
+При создании Request система MUST выбрать ровно один Service Release.
+Request MUST сохранить прямую ссылку на выбранный Service Release на весь срок своей жизни.
+После создания Request значение `Request.service_release` MUST NOT изменяться.
+Запрет действует для автоматических операций и ручных действий, включая действия администратора.
+Новый Service Release MUST применяться только к новым Request.
+Редактирование Service или публикация нового Service Release MUST NOT менять правила существующей Request.
+Workflow Runtime MUST исполнять Request по Service Release, выбранному при ее создании.
+Он MUST NOT вычислять правила существующей Request через `service.current_release` или Service Draft.
+
+[ADR-001](../adr/ADR-001-service-release-immutability.md) фиксирует оба инварианта.
 
 ## Состав снимка
 
@@ -80,13 +92,16 @@ Runtime MUST восстанавливать точные правила без �
 Новые Request используют новый Service Release после переключения `current_release`.
 Старые Request продолжают исполнение по прежним правилам.
 Service Release остается доступен runtime после архивации Service.
-Момент фиксации Service Release для черновика Request требует решения D-04 в [состояниях](../product/statuses.md).
+Модель черновика требует решения D-04 в [состояниях](../product/statuses.md).
+Это решение MUST сохранять оба инварианта с момента создания Request.
 
-Миграция уже запущенных процессов по умолчанию не поддерживается.
-Исходник допускает будущую операцию Migrate Execution только для администратора.
-Она требует явного target release, compatibility check, mapping node state, audit и dry-run.
-MVP MUST NOT автоматически переключать старую Request на новую версию.
-Будущее исключение потребует отдельного решения; текущий ADR его не разрешает.
+Migrate Execution остается будущей функцией Product Scope.
+Ее семантика не утверждена.
+Исходник упоминает администратора, target release, compatibility check, mapping node state, audit и dry-run.
+Этот перечень не является утвержденным контрактом или описанием механизма миграции.
+Migrate Execution MUST NOT считаться разрешением изменить `Request.service_release`.
+Изменение инварианта связи в будущем потребует отдельного явного ADR.
+До принятия такого ADR `Request.service_release` MUST оставаться неизменяемой.
 
 ## Приемка неизменяемости
 
@@ -95,6 +110,8 @@ MVP MUST NOT автоматически переключать старую Requ
 3. Проверить, что R1 использует все три набора правил v1.
 4. Создать R2 и проверить применение v2.
 5. Проверить, что опубликованный Service Release нельзя изменить через серверный путь записи.
+6. Попытаться изменить `R1.service_release` на v2 через серверные пути записи, включая действие администратора.
+7. Проверить отказ и сохранение ссылки R1 на v1. Повторить проверку после завершения R1.
 
 M01 проверяет привязку. M02 проверяет публикацию и неизменяемость поддерживаемых формы и workflow.
 После M08 тот же сценарий MUST дополнительно проверить фактический расчет SLA по v1 и v2.

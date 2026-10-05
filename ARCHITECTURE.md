@@ -85,8 +85,11 @@ Idempotency hardening в M10 не отменяет защиту повторов
 
 | Инвариант | Основной источник правила |
 |---|---|
-| Request ссылается на immutable Service Release | [Service Release](docs/architecture/service-release.md), [ADR-001](docs/adr/ADR-001-service-release-immutability.md) |
-| Runtime не читает правила из текущего Service Draft | [Service Release](docs/architecture/service-release.md) |
+| Published Service Release MUST быть immutable | [Service Release](docs/architecture/service-release.md), [ADR-001](docs/adr/ADR-001-service-release-immutability.md) |
+| При создании Request система MUST выбрать ровно один Service Release. Request MUST сохранить ссылку на весь срок своей жизни. После создания `Request.service_release` MUST NOT изменяться | [Service Release](docs/architecture/service-release.md), [ADR-001](docs/adr/ADR-001-service-release-immutability.md) |
+| Новый Service Release MUST применяться только к новым Request. Редактирование Service или новая публикация MUST NOT менять правила существующей Request | [Service Release](docs/architecture/service-release.md) |
+| Workflow Runtime MUST исполнять Request по Service Release, выбранному при ее создании. Он MUST NOT брать правила из Service Draft или текущего `service.current_release` | [Service Release](docs/architecture/service-release.md) |
+| Expression Language MUST быть декларативной. Она MUST быть безопасной. Она MUST NOT предоставлять возможность исполнения произвольного server-side Python или другого произвольного кода | [Workflow Definition](docs/architecture/workflow-definition.md#expression-language), [ADR-003](docs/adr/ADR-003-workflow-definition-format.md) |
 | Public API строится из safe projection | [Permissions](docs/architecture/permissions.md) |
 | Field-level permissions проверяются server-side | [Permissions](docs/architecture/permissions.md) |
 | Claim Task атомарен | [Assignment](docs/architecture/task-assignment.md) |
@@ -103,7 +106,7 @@ Idempotency hardening в M10 не отменяет защиту повторов
 |---|---|
 | [Overview](docs/architecture/overview.md) | Компоненты, надежность, performance, масштаб, observability, риски |
 | [Domain model](docs/architecture/domain-model.md) | Предложенные DocType, атрибуты, хранение и удаление |
-| [Service Release](docs/architecture/service-release.md) | Snapshot, публикация, версии и запрет миграции по умолчанию |
+| [Service Release](docs/architecture/service-release.md) | Snapshot, публикация, версии и неизменяемая связь Request → Service Release |
 | [Workflow Definition](docs/architecture/workflow-definition.md) | Граф, expressions и validation |
 | [Workflow Runtime](docs/architecture/workflow-runtime.md) | Node Run, транзакции, retries, recovery, trace |
 | [Workflow nodes](docs/architecture/workflow-nodes.md) | Контракты Node, Join и коллективного Approval |

@@ -27,6 +27,7 @@ Agent Workspace подбирает Knowledge Article по Service и Node.
 Публикация статьи не дает всем пользователям право на ее чтение.
 Поиск учитывает доступ на сервере: [контракт поиска](../architecture/integrations.md).
 
-MVP включает collections, редактор, публикацию, permissions, поиск и связь статьи с Service/Node.
+Milestone Scope M09 включает collections, редактор, публикацию, permissions, поиск и связь статьи с Service/Node.
+Knowledge Base входит в Product Scope и остается Out of Scope for M01.
 Связь с существующей Wiki остается вопросом Q13 в [обзоре продукта](overview.md).
 Реализация запланирована в [M09](../milestones/M09-knowledge-base.md).

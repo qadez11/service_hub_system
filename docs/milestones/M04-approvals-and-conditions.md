@@ -17,16 +17,16 @@
 
 ## Dependencies
 
-[M03](M03-workflow-studio.md), ManagerResolver и решение по expression language.
+[M03](M03-workflow-studio.md), ManagerResolver и решение по реализации Expression Language.
 
-## Scope
+## Milestone Scope
 
 Approval с одним согласующим; Condition; Switch; End Failure.
 Разрешенные ветки approved/rejected/returned/cancelled зависят от принятой таблицы переходов.
 Assignment user/role/requester manager, условия формы и выражения используют общие contracts.
 Сценарий доступа добавляет Security Approval только для privileged role.
 
-## Out of Scope
+## Out of Scope for M04
 
 Коллективные ANY/ALL/N_OF_M переходят в M05. Произвольные циклы, email approval и делегирование по отсутствию не добавляются автоматически.
 
@@ -50,11 +50,13 @@ Assignment user/role/requester manager, условия формы и выраж�
 Решение принимает только уполномоченный согласующий.
 Повтор решения не продвигает граф дважды.
 Condition и Switch используют утвержденные expressions.
+Expression Language MUST быть декларативной и безопасной.
+Она MUST NOT предоставлять исполнение произвольного server-side Python или другого произвольного кода.
 Сценарий доступа проходит без привилегированной роли и с ней.
 
 ## Required Tests
 
-Негативные expressions; недоступные references; конкурирующие решения; все утвержденные исходы Approval; ветви Condition/Switch; regression immutable Service Release.
+Попытки исполнения произвольного кода через Expression Language; негативные expressions; недоступные references; конкурирующие решения; все утвержденные исходы Approval; ветви Condition/Switch; regression immutable Service Release.
 
 ## AI Budget
 

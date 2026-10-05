@@ -19,13 +19,15 @@
 
 [M06](M06-communications.md). Server-side enforcement и safe projections обязательны с M01.
 
-## Scope
+## Milestone Scope
 
 Field-level view/edit и другие права; participant permissions; attachment permissions; API/notification/export filtering; classification inheritance; permission debugging.
 
-## Out of Scope
+## Out of Scope for M07
 
-Неограниченный policy language и изменение immutable Service Release для исправления прав старой Request без отдельного решения.
+Неограниченный policy language.
+Published Service Release MUST оставаться immutable.
+Изменение прав MUST NOT менять `Request.service_release`: [контракт](../architecture/service-release.md).
 
 ## Architecture Involved
 

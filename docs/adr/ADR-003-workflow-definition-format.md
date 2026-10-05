@@ -21,6 +21,13 @@ Proposed
 
 Независимо от выбора сохраняются node_key, mappings, Error Policy и независимость опубликованного определения от Service Draft.
 
+Expression Language MUST быть декларативной.
+Expression Language MUST быть безопасной.
+Она MUST NOT предоставлять возможность исполнения произвольного server-side Python или другого произвольного кода.
+Основной контракт — [инвариант безопасности Expression Language](../architecture/workflow-definition.md#expression-language).
+Статус Proposed относится к формату Definition и MUST NOT ослаблять этот инвариант.
+Конкретная реализация языка остается открытой в D-09.
+
 ## Причины
 
 Нельзя превратить допустимый вариант исходника в молча принятое архитектурное решение.

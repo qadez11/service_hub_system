@@ -19,13 +19,14 @@ Workflow, коммуникация и permissions позволяют безоп�
 
 [M07](M07-security.md), решения по календарям и видам SLA.
 
-## Scope
+## Milestone Scope
 
 Business Calendar; Resolution SLA; Task due time; pause/resume; warning/breach; escalation; Wait/Timer. First response и Approval SLA — по решению D-19.
 
-## Out of Scope
+## Out of Scope for M08
 
-Сложное capacity planning, внешние supplier workflows и изменение правил старого Service Release без новой модели.
+Сложное capacity planning и внешние supplier workflows.
+Изменение SLA MUST NOT менять опубликованный Service Release или `Request.service_release`: [контракт](../architecture/service-release.md).
 
 ## Architecture Involved
 

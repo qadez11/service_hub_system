@@ -17,9 +17,10 @@ DECISION REQUIRED обозначает вопрос, который нужно �
 | Service | Услуга организации с определенным результатом и правилами его получения |
 | Service Draft | Редактируемая рабочая версия Service |
 | Service Release | Неизменяемая опубликованная версия исполняемых правил Service |
-| Request | Одно обращение пользователя за результатом Service |
+| Request | Одно обращение пользователя за результатом Service. При создании система MUST выбрать ровно один Service Release. Ссылка MUST NOT изменяться на всем сроке жизни Request; [контракт](../architecture/service-release.md) |
 | Requester | Заявитель, который создает Request и получает результат |
 | Workflow Definition | Определение графа и правил workflow; опубликованное определение входит в Service Release |
+| Expression Language | Язык выражений. MUST быть декларативным и безопасным. MUST NOT предоставлять исполнение произвольного server-side Python или другого произвольного кода; [контракт и D-09](../architecture/workflow-definition.md#expression-language) |
 | Workflow Execution | Техническое исполнение Workflow Definition для Request |
 | Node | Узел Workflow Definition со стабильным `node_key` |
 | Node Run | Отдельный запуск Node с состоянием, входом, выходом и попыткой |
@@ -48,6 +49,18 @@ DECISION REQUIRED обозначает вопрос, который нужно �
 | Data Provider Layer | Граница получения корпоративных данных через зарегистрированные providers |
 | Test Run | Проверка workflow на тестовых данных без боевых Task |
 | CSAT | Оценка качества Service после успешного завершения |
+
+## Термины планирования
+
+Product Scope → Roadmap → Milestone → Slice → ExecPlan → Implementation.
+
+- Product Scope — границы целевого продукта в [PRODUCT](../../PRODUCT.md).
+- Roadmap — порядок реализации в [ROADMAP](../../ROADMAP.md).
+- Milestone Scope — состав конкретного Milestone.
+- Out of Scope for Mxx — возможности вне указанного Milestone; это не исключение из Product Scope.
+- Slice — малая вертикальная задача с одним проверяемым результатом.
+- ExecPlan — план выполнения одного Slice.
+- Implementation — реализация по ExecPlan.
 
 ## Нормализация исходных названий
 

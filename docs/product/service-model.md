@@ -61,13 +61,16 @@ UI не обязан показывать исходный JSON.
 
 ## Зависимости Service
 
-После MVP Service может вызывать другую Service через child request.
+Будущая возможность Product Scope — вызов другой Service через child request.
+Она не входит в Milestone Scope M00–M10; срок реализации не утвержден.
 Пример: onboarding включает доступ, оборудование и пропуск.
 Requester при этом видит один master Request.
 
-Для MVP исходник рекомендует Subflow вместо полноценной модели child request.
-При этом список обязательных Node MVP не включает Subflow.
+Исходник рекомендует Subflow вместо полноценной модели child request для раннего результата.
+При этом исходный обязательный перечень Node не включает Subflow.
 Граница этой возможности требует решения D-03 в [каталоге Node](../architecture/workflow-nodes.md).
 
-Уже запущенные Request по умолчанию не мигрируют между Service Release.
-Будущее исключение Migrate Execution описано в [модели Service Release](../architecture/service-release.md).
+После создания Request значение `Request.service_release` MUST NOT изменяться на всем сроке жизни Request.
+Migrate Execution — будущая функция с неутвержденной семантикой.
+Она MUST NOT считаться исключением из этого правила.
+Изменение инварианта потребует отдельного явного ADR: [контракт Service Release](../architecture/service-release.md).
