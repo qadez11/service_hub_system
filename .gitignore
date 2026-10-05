@@ -53,3 +53,7 @@ jspm_packages/
 
 # Aider AI Chat
 .aider*
+
+# Built by the frontend
+service_hub_system/public/frontend
+service_hub_system/www/service-hub.html

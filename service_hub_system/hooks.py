@@ -262,3 +262,7 @@ app_license = "apache-2.0"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+# Load the frontend on every path under /service-hub
+website_route_rules = [
+	{"from_route": "/service-hub/<path:app_path>", "to_route": "service-hub"},
+]
