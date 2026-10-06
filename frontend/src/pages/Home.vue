@@ -13,11 +13,10 @@ const { resolvedColorScheme, toggleColorScheme } = useColorScheme()
 
 const bootUser = window.user
 
-// A GET request, so it works in development too. A POST request sends the CSRF
-// token from the boot data, which only a production build has, so on the dev
-// server the site needs `ignore_csrf`.
-const loggedUser = useCall<string>({
-  url: '/api/v2/method/frappe.auth.get_logged_user',
+// This built-in GET endpoint is safe for the development smoke and does not
+// need a logged-in user or product data.
+const backendPing = useCall<string>({
+  url: '/api/v2/method/frappe.ping',
 })
 </script>
 
@@ -78,28 +77,28 @@ const loggedUser = useCall<string>({
           aria-hidden="true"
         />
         <div class="min-w-0 flex-1">
-          <p class="text-base-medium text-ink-gray-8">Server call</p>
+          <p class="text-base-medium text-ink-gray-8">Backend smoke</p>
           <ErrorMessage
-            v-if="loggedUser.error"
+            v-if="backendPing.error"
             class="mt-1.5"
-            :message="loggedUser.error"
+            :message="backendPing.error"
           />
           <p v-else class="mt-1.5 truncate text-sm text-ink-gray-5">
             {{
-              loggedUser.data
-                ? `frappe.auth.get_logged_user returned ${loggedUser.data}`
-                : 'Calling frappe.auth.get_logged_user…'
+              backendPing.data
+                ? `frappe.ping returned ${backendPing.data}`
+                : 'Calling frappe.ping…'
             }}
           </p>
         </div>
-        <Badge v-if="loggedUser.data" theme="green" label="Working" />
-        <Badge v-else-if="loggedUser.error" theme="red" label="Failed" />
+        <Badge v-if="backendPing.data" theme="green" label="Working" />
+        <Badge v-else-if="backendPing.error" theme="red" label="Failed" />
         <Button
           icon="lucide-refresh-cw"
           tooltip="Call again"
           aria-label="Call again"
-          :loading="loggedUser.loading"
-          @click="loggedUser.reload()"
+          :loading="backendPing.loading"
+          @click="backendPing.reload()"
         />
       </div>
     </div>
