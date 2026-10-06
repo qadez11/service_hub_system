@@ -128,6 +128,37 @@ npm run type-check
 The frontend command reports the existing router fallback smoke test. It makes
 no backend request and uses no product or development data.
 
+## Continuous integration
+
+GitHub Actions runs on pull requests, pushes to `main`, and manual dispatch.
+The backend job creates an ephemeral Frappe 16 Bench with MariaDB 11.8, Redis,
+and a new `test_site`, then installs this checkout and runs the backend smoke.
+It never connects to `development.localhost`, `service-hub-tests.localhost`, or
+production data. Separate jobs run the deterministic frontend install, test,
+type-check, and build on Node 24, then Ruff lint and format checks on Python
+3.14.
+
+The matching local checks still run inside the Frappe development container:
+
+```bash
+cd /workspace/development/frappe-bench
+bench --site service-hub-tests.localhost run-tests --app service_hub_system
+cd apps/service_hub_system/frontend
+npm ci
+npm run test
+npm run type-check
+npm run build
+```
+
+Ruff is intentionally installed at the same version as the pre-commit hook:
+
+```bash
+cd /workspace/development/frappe-bench/apps/service_hub_system
+python -m pip install ruff==0.14.10
+ruff check service_hub_system
+ruff format --check service_hub_system
+```
+
 ## Участие в разработке
 
 Репозиторий использует pre-commit для форматирования и lint.

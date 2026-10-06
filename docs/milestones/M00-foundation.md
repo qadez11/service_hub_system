@@ -107,6 +107,12 @@ L. Выполнять отдельными Slice; M00.7 делить при на
 [D-21](../architecture/existing-app-boundary.md): точные provider contracts.
 [Q01–Q05, Q11](../product/overview.md): identity, чувствительность, компании, нагрузка, SSO и миграция команд.
 [D-07](../architecture/domain-model.md), [D-22](../adr/ADR-003-workflow-definition-format.md): минимальная модель и формат графа.
-Нужно выбрать CI и test environment по фактической инфраструктуре. Исходник их не задает.
+CI и test environment выбраны в M00.5: GitHub Actions запускается для pull request,
+push в `main` и вручную. Backend job создает одноразовый Frappe 16 Bench с MariaDB
+11.8, Redis cache/queue и новым `test_site`; он не подключается к
+`development.localhost`, `service-hub-tests.localhost` или production-данным.
+Frontend job выполняет lockfile-based test/type-check/build на Node 24, а отдельный
+job запускает Ruff. Успешный hosted run подтверждается после разрешенного push;
+локальные команды остаются в README.
 
 [Общий ROADMAP](../../ROADMAP.md) · [Правила ExecPlan](../../.agent/PLANS.md)
