@@ -21,8 +21,16 @@ Service Hub не дублирует корпоративные master-data. Фо
 ## Последствия
 
 Нужны явные contracts providers, references и PermissionResolver.
-Конкретные DocType, источники Team и способы авторизации остаются открытыми.
-Accepted относится к границе, а не к готовности адаптеров itnovel_common.
+Принятый для M01 минимальный D-21 contract находится в
+[Existing app boundary](../architecture/existing-app-boundary.md#d-21--corporate-provider-contract-decision):
+corporate employee identity приходит только через адаптер, routing Team и ее
+membership принадлежат Service Hub, а effective access является пересечением
+corporate и Service Hub contextual permissions. Внутренние Common DocType и
+API остаются разрешенными только внутри adapter implementation.
+
+Это не утверждает готовность адаптеров `itnovel_common` и не проектирует
+будущие providers. Manager, organization, document и расширенный employment
+контракты отложены в основном документе решения.
 
 ## Альтернативы
 

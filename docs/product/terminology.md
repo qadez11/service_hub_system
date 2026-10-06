@@ -18,7 +18,7 @@ DECISION REQUIRED обозначает вопрос, который нужно �
 | Service Draft | Редактируемая рабочая версия Service |
 | Service Release | Неизменяемая опубликованная версия исполняемых правил Service |
 | Request | Одно обращение пользователя за результатом Service. При создании система MUST выбрать ровно один Service Release. Ссылка MUST NOT изменяться на всем сроке жизни Request; [контракт](../architecture/service-release.md) |
-| Requester | Заявитель, который создает Request и получает результат |
+| Requester | Заявитель, который создает Request и получает результат. Для M01 это ровно одна active corporate employee identity, разрешенная из authenticated Frappe User с fail-closed поведением; сохраняется только [CorporateRef](../architecture/existing-app-boundary.md#stable-reference) |
 | Workflow Definition | Определение графа и правил workflow; опубликованное определение входит в Service Release |
 | Expression Language | Язык выражений. MUST быть декларативным и безопасным. MUST NOT предоставлять исполнение произвольного server-side Python или другого произвольного кода; [контракт и D-09](../architecture/workflow-definition.md#expression-language) |
 | Workflow Execution | Техническое исполнение Workflow Definition для Request |

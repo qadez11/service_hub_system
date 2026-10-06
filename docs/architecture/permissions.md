@@ -92,6 +92,10 @@ Attachment имеет собственные access policy и classification.
 
 M01 обязан проверять доступ к Request, очереди и действиям на сервере.
 M01 использует разрешенную safe projection с минимальным набором данных.
+Для corporate identity и Team queue M01 effective access — это corporate
+grant AND Service Hub contextual permission; любой deny/error, отсутствующий
+provider или membership дает deny. Точный D-21 contract и safe identity
+projection находятся в [границе существующего приложения](existing-app-boundary.md#d-21--corporate-provider-contract-decision).
 M06 обязан защищать сообщения и notification context с момента их появления.
 M07 расширяет field-level, participant, attachment и export policies.
 M07 не является разрешением откладывать защиту уже доступных данных.
