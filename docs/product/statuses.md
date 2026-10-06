@@ -1,6 +1,7 @@
 # Состояния и публичное представление
 
-Основание: исходный PRODUCT draft 0.1, разделы 7, 9–12, 18, 26, 30.
+Основание: исходный PRODUCT draft 0.1, разделы 7, 9–12, 18, 26, 30;
+контролируемо принятый инвариант одного Public Status из коллегиального draft 0.4.
 
 
 ## Области состояний
@@ -26,6 +27,9 @@ Task, Node Run, Service и Knowledge Article имеют отдельные на�
 ## Mapping Public Status
 
 Service Release хранит правило отображения внутреннего состояния в Public Status.
+Каждая submitted Request в каждый момент имеет ровно один безопасный Public Status.
+Параллельные ветки не создают отдельные public statuses Team и не раскрывают их имена через статус.
+Last-write-wins по последней измененной Node не является допустимым правилом для parallel.
 Исходник дает следующие примеры:
 
 | Внутреннее событие или состояние | Public Status |
@@ -44,11 +48,16 @@ Requester видит создание Request, начало работы, зап
 Система не публикует внутренние имена Node и технические сообщения.
 Состав представления находится в [PublicRequestView](../architecture/permissions.md).
 
-> DECISION REQUIRED — D-02: переходы и конкурирующие состояния.
-> Не определены полные переходы, приоритеты mapping параллельных веток и enum Internal Status/Workflow Execution.
+> DECISION REQUIRED — D-02: переходы и внутренние состояния.
+> Не определены полные переходы и enum Internal Status/Workflow Execution.
 > Это влияет на допустимые действия и стабильность Public Status.
 > Исходник дает примеры mapping и допускает «Нужна помощь» либо сохранение безопасного статуса.
-> До реализации Slice нужно утвердить используемые переходы; до M05 — правило выбора статуса при нескольких активных ветках.
+> До реализации Slice нужно утвердить используемые переходы.
+>
+> DECISION REQUIRED — D-24: reducer Public Status для parallel.
+> Нужно определить priority order между Request Information, technical failure, Approval, Human Task и terminal outcomes, а также границу Service Release mapping.
+> Порядок `Ожидаем вас > Нужна помощь > На согласовании > Выполняется` из коллегиального draft 0.4 — кандидат, а не утвержденный контракт.
+> Required before: M05.
 >
 > DECISION REQUIRED — D-04: черновик Request и фиксация Service Release.
 > Есть действие сохранения черновика. Его модель и момент создания Request пока не определены.

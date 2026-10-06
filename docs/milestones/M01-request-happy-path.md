@@ -30,6 +30,10 @@ Safe projection, серверная проверка доступа и ауди�
 Минимальная защита повторного complete/job должна сохранять согласованность этого пути.
 Форма не содержит сложные чувствительные данные, attachments или произвольные expressions.
 
+Для этого одного статического пути fixed Team queue может одновременно нести минимальную coordinating responsibility за Request.
+M01 не требует одновременных `request_owner` и `coordinating_team`, отдельной coordination queue, manager-of-requester/expression policy и reassignment workflow.
+Точная модель остается [D-23](../product/requests.md#coordinating-responsibility-request) и должна быть решена до M05, а не в этом milestone.
+
 ```mermaid
 flowchart LR
   S[Service Release] --> R[Request]
@@ -45,6 +49,7 @@ flowchart LR
 ## Out of Scope for M01
 
 Visual Workflow Studio, полный Service Designer, Approval, Parallel, N_OF_M, расширенный SLA и полный field ACL designer.
+Coordination Workspace, отдельный Request Owner lifecycle, переназначение coordinating responsibility и ее SLA escalation не входят.
 Knowledge Base, Subflow, marketplace, AI automation и сложная аналитика не входят.
 Реальные внешние side effects не нужны для доказательства этого пути.
 

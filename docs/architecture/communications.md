@@ -1,15 +1,33 @@
 # Коммуникации и уведомления
 
-Основание: исходный PRODUCT draft 0.1, разделы 9, 13, 21, 26.7.
+Основание: исходный PRODUCT draft 0.1, разделы 9, 13, 21, 26.7;
+контролируемо принятое разделение communication scopes из коллегиального draft 0.4.
 
 
 ## Каналы сообщений
 
-Сообщение всегда имеет тип Public или Internal.
-Public Message видит Requester.
-Internal Note и другие сообщения Internal доступны только внутренним участникам с правом.
+**ACCEPT_FOR_PRODUCT_SCOPE.** Коммуникации разделены на три scope:
+
+- `public` на Request — виден Requester и внутренним участникам с правом;
+- `request-internal` — внутренний кросс-командный контекст Request только для participants с явным правом;
+- `task-internal` — внутренняя работа конкретной Task для ее разрешенных участников.
+
+Участие в Task не дает автоматически право на `request-internal`, а участие в Request не открывает все `task-internal` каналы.
+Поле и Attachment ACL применяются к содержимому независимо от scope.
 UI MUST требовать явное действие для изменения типа сообщения.
 Серверная policy проверяется независимо от выбора в UI.
+Все три scope входят в Product Scope, но не обязаны появиться в M01; их основной Milestone Scope — M06.
+
+## Контроль public communication
+
+> PROPOSED — controlling public communicator.
+> Для parallel Request может быть полезно в каждый момент определять одного actor или Task, уполномоченных вести public communication.
+> Это не является принятым глобальным инвариантом и не ограничивает права до решения D-25.
+
+> DECISION REQUIRED — D-25: кто управляет public communication и Request Information.
+> Нужно сравнить единого communicator, нескольких уполномоченных actors с координацией и правило Service Release.
+> Решение должно определить fallback, право открыть Request Information, одновременные waits, audit и поведение при reassignment.
+> Required before: M05/M06.
 
 ## Уведомления
 
@@ -58,6 +76,7 @@ Node может задать вопрос, открыть дополнитель
 M06 проверяет коммуникацию и продолжение workflow.
 M08 добавляет проверку учета рабочего времени, паузы и возобновления.
 [Permissions](permissions.md) определяют допустимые поля и attachments.
+При parallel право открыть Request Information и поведение нескольких одновременных waits требуют D-25; до решения нельзя молча связывать это право с proposed communicator.
 
 > DECISION REQUIRED — D-18: изменяемость сообщений.
 > Не определены правила редактирования, удаления и смены типа уже опубликованного сообщения.

@@ -33,6 +33,7 @@ Service Release фиксирует:
 - форму и workflow graph;
 - expression rules и assignment rules;
 - SLA policies и access policies;
+- правило coordinating responsibility, когда его контракт будет утвержден по [D-23](../product/requests.md#coordinating-responsibility-request);
 - Notification Template;
 - mapping Public Status;
 - ссылки на конфигурацию интеграций;

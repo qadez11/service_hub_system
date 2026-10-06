@@ -17,15 +17,17 @@
 
 ## Dependencies
 
-[M04](M04-approvals-and-conditions.md), решения по Join, коллективному Approval и mapping Public Status.
+[M04](M04-approvals-and-conditions.md), решения по Join, коллективному Approval, coordinating responsibility и reducer Public Status.
 
 ## Milestone Scope
 
-Parallel Split; Join ALL/ANY/N_OF_M; политики cancel/continue; коллективное Approval; однократное продвижение Join; безопасный публичный результат.
+Parallel Split; Join ALL/ANY/N_OF_M; политики cancel/continue; коллективное Approval; однократное продвижение Join; безопасный публичный результат и ровно один Public Status без branch/Team leakage.
+Параллельные ветки не дробят одну coordinating responsibility Request; ее точное представление должно быть утверждено по D-23 до зависимой реализации.
 
 ## Out of Scope for M05
 
 Произвольные loops, compensation, child requests и полноценный Subflow.
+Отдельные coordination queue/UI, manager-of-requester/expression assignment и сложные reassignment rules не добавляются в M05 автоматически.
 
 ## Architecture Involved
 
@@ -45,7 +47,7 @@ Parallel Split; Join ALL/ANY/N_OF_M; политики cancel/continue; колл�
 
 ## Acceptance Criteria
 
-Все критерии ALL/ANY/N_OF_M из каталога Node выполнены. Join продолжается один раз. Оставшиеся ветки соблюдают policy. Статус Requester не зависит от гонки обновлений.
+Все критерии ALL/ANY/N_OF_M из каталога Node выполнены. Join продолжается один раз. Оставшиеся ветки соблюдают policy. Статус Requester не зависит от гонки обновлений, не использует last-write-wins и не раскрывает статусы отдельных Team.
 
 ## Required Tests
 
@@ -65,6 +67,6 @@ XL. Каждый режим Join и коллективное Approval — отд
 
 ## Decision Required
 
-[D-12/D-13](../architecture/workflow-nodes.md): исходы Join и Approval. [D-02](../product/statuses.md): Public Status при параллельности. Третья policy «wait but do not block public result» требует отдельного решения о сроке реализации.
+[D-12/D-13](../architecture/workflow-nodes.md): исходы Join и Approval. [D-23](../product/requests.md#coordinating-responsibility-request): модель coordinating responsibility. [D-24](../product/statuses.md): reducer Public Status при параллельности. Третья policy «wait but do not block public result» требует отдельного решения о сроке реализации.
 
 [Общий ROADMAP](../../ROADMAP.md) · [Правила ExecPlan](../../.agent/PLANS.md)

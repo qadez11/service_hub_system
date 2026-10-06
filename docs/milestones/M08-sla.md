@@ -17,11 +17,13 @@ Workflow, коммуникация и permissions позволяют безоп�
 
 ## Dependencies
 
-[M07](M07-security.md), решения по календарям и видам SLA.
+[M07](M07-security.md), D-19 по календарям, видам SLA и pause semantics; D-23 для получателей request-level escalation.
 
 ## Milestone Scope
 
-Business Calendar; Resolution SLA; Task due time; pause/resume; warning/breach; escalation; Wait/Timer. First response и Approval SLA — по решению D-19.
+Business Calendar; Request Resolution SLA; Task due/SLA; независимые pause/resume; warning/breach; escalation; Wait/Timer. First response и Approval SLA — по решению D-19.
+Ожидание Requester может приостанавливать Request Resolution SLA по принятой policy; Waiting Task и межкомандная зависимость не паузят его автоматически.
+Пауза Task SLA определяется отдельно и не меняет Request clock неявно.
 
 ## Out of Scope for M08
 
@@ -38,11 +40,11 @@ Business Calendar; Resolution SLA; Task due time; pause/resume; warning/breach; 
 
 ## Acceptance Criteria
 
-Срок учитывает календарь. Ожидание Requester приостанавливает разрешенный SLA и ответ возобновляет его. Warning/breach не дублируют действие при повторе job.
+Срок учитывает календарь. Ожидание Requester приостанавливает разрешенный Request SLA и ответ возобновляет его. Внутреннее ожидание не скрывает resolution time за неявной pause. Task SLA и Request Resolution SLA воспроизводимы независимо. Warning/breach не дублируют действие при повторе job.
 
 ## Required Tests
 
-Выходные, праздники, исключения, timezone; пересекающиеся паузы по принятой модели; restart timers; неизменность правил старой Request; E2E Request Information.
+Выходные, праздники, исключения, timezone; пересекающиеся паузы по принятой модели; Task Waiting без паузы Request Resolution; независимые Task/Request clocks; restart timers; неизменность правил старой Request; E2E Request Information.
 
 ## AI Budget
 
@@ -58,6 +60,6 @@ XL. Календарь, часы и эскалации требуют отдел
 
 ## Decision Required
 
-[D-19](../architecture/sla.md): точная семантика часов, календарей и обязательные виды SLA. [D-08](../architecture/service-release.md): изменяемые ссылки.
+[D-19](../architecture/sla.md): точная семантика часов, календарей, pause flags, escalation recipients и обязательные виды SLA. [D-23](../product/requests.md#coordinating-responsibility-request): request-level escalation recipient. [D-08](../architecture/service-release.md): изменяемые ссылки.
 
 [Общий ROADMAP](../../ROADMAP.md) · [Правила ExecPlan](../../.agent/PLANS.md)

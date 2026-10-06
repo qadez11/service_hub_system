@@ -61,6 +61,8 @@ Internal Note, технические ошибки и закрытые знач�
 
 Просмотр Task не дает полный доступ к Request.
 Доступ формируется из service policy, active task assignment, team membership, field-level policy и explicit participant role.
+Назначение Request Owner или Coordinating Team, если один из этих вариантов будет принят по [D-23](../product/requests.md#coordinating-responsibility-request), не дает автоматически полный доступ к Request.
+Права на public, request-scoped internal и task-scoped internal коммуникации проверяются отдельно.
 После завершения Task доступ сохраняется или отзывается по политике.
 
 Attachment имеет собственные access policy и classification.

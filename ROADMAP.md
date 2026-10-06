@@ -59,10 +59,10 @@ Budget не является оценкой часов, стоимости ил�
 | [M02 — Service Designer](docs/milestones/M02-service-designer.md) | Управляемая публикация | Владелец выпускает новую форму | Service Draft, typed form, field_key, publish/versioning | Visual graph editor, миграция Request | M01 | R1 остается на v1; R2 работает на v2 | XL |
 | [M03 — Workflow Studio](docs/milestones/M03-workflow-studio.md) | Визуальное проектирование | Designer собирает поддерживаемый граф | Start, Human Task, End Success, Validate, Test Run | Новые runtime Node и сложные ветки | M02; ADR-003 Accepted | Граф исполняется независимо от editor; Test Run изолирован | XL |
 | [M04 — Approvals and Conditions](docs/milestones/M04-approvals-and-conditions.md) | Согласования и условия | Request идет по нужной ветке | Approval, Condition, Switch, End Failure, expressions | Parallel и коллективное Approval | M03; expression/return contracts | Сценарий доступа и разрешенные исходы проверены | XL |
-| [M05 — Parallel Workflows](docs/milestones/M05-parallel-workflows.md) | Параллельное исполнение | Team выполняют одну Request совместно | Split, ALL/ANY/N_OF_M, cancel/continue, collective Approval | Loops, compensation, child requests | M04; Join/Approval decisions | Все Join проверены; continuation однократен | XL |
-| [M06 — Communications](docs/milestones/M06-communications.md) | Безопасная коммуникация | Requester отвечает в своей Request | Request Information, Public Message, Internal Note, notifications, draft | Мессенджеры и учет SLA времени | M05; каналы и draft binding | Ответ продолжает процесс; закрытые данные не раскрыты | L |
+| [M05 — Parallel Workflows](docs/milestones/M05-parallel-workflows.md) | Параллельное исполнение | Team выполняют одну Request совместно | Split, ALL/ANY/N_OF_M, cancel/continue, collective Approval | Loops, compensation, child requests | M04; Join/Approval decisions; D-23/D-24 | Все Join проверены; continuation однократен; Public Status один и безопасен | XL |
+| [M06 — Communications](docs/milestones/M06-communications.md) | Безопасная коммуникация | Requester отвечает в своей Request | Request Information; public, request-scoped internal и task-scoped internal; notifications; draft | Мессенджеры и учет SLA времени | M05; D-25; каналы и draft binding | Ответ продолжает процесс; закрытые данные не раскрыты | L |
 | [M07 — Security](docs/milestones/M07-security.md) | Расширенная защита | Доступ к полям и файлам соблюдает policy | Field ACL, participants, attachments, API/notification/export filtering | Произвольный policy language | M06; policy matrix | Негативная матрица всех каналов проходит | XL |
-| [M08 — SLA](docs/milestones/M08-sla.md) | Учет сроков | Команда видит риски SLA | Calendar, SLA, pause/resume, Wait/Timer, escalation | Capacity planning | M07; clock contract | Сроки и паузы воспроизводимы; timers переживают restart | XL |
+| [M08 — SLA](docs/milestones/M08-sla.md) | Учет сроков | Команда видит риски SLA | Calendar, Request Resolution SLA, Task due/SLA, independent pause/resume, Wait/Timer, escalation | Capacity planning | M07; D-19; D-23 для escalation recipients | Сроки и паузы воспроизводимы; internal waiting не скрывается за неявной pause; timers переживают restart | XL |
 | [M09 — Knowledge Base](docs/milestones/M09-knowledge-base.md) | Контекстные знания | Пользователь находит разрешенную помощь | Collections, editor, revisions, publish, search, links | AI search, неутвержденная Wiki migration | M08; Wiki/search decisions | Статьи доступны по policy в контексте Service/Node | L |
 | [M10 — Hardening](docs/milestones/M10-hardening.md) | Готовность пилота | Четыре Service проходят полную приемку | Audit, observability, recovery, actions, performance, analytics, CSAT | Будущие платформенные расширения вне M00–M10 | M09; нагрузка и pilot contracts | Общие критерии пилота подтверждены | XL |
 
@@ -74,6 +74,8 @@ Budget не является оценкой часов, стоимости ил�
 - Published Service Release MUST быть immutable. После создания Request ее связь с выбранным Service Release MUST NOT изменяться. Оба инварианта действуют с M01; M02 добавляет полноценный редактор и publish.
 - Server-side permissions и safe projection действуют с M01; M07 расширяет модель.
 - Atomic claim входит в M01 вместе с очередью.
+- Request и Task сохраняют разные роли: Agent Workspace ориентирован на Task, Request сохраняет общий кейс.
+- Coordinating responsibility входит в Product Scope, но не требует от M01 отдельных Request Owner и Coordinating Team: в одном статическом пути та же fixed Team может нести минимальную координацию. D-23 блокирует зависимую parallel-модель до M05, а не M01.
 - Lifecycle audit появляется вместе с действиями; M10 расширяет эксплуатационную полноту.
 - Защита повторного продвижения появляется вместе с runtime; M10 проверяет сложные failure modes и внешние actions.
 - Notifications получают только безопасный контекст с M06.
@@ -96,10 +98,10 @@ Budget не является оценкой часов, стоимости ил�
 | Wait и SLA | M08 |
 | Action, включая ограниченные Create/Update Record и Integration Action | Набор Q14 уточняется для пилота; надежность и завершение M10 |
 | Runtime: release binding, state, retries, waiting | M01 и расширения M04–M10 |
-| Agent Workspace: queues, claim, assignee, completion, Internal Note | M01; Internal Note M06; SLA представления M08 |
+| Agent Workspace: Task queues, claim, assignee, completion, internal channels | M01; request/task-scoped internal M06; SLA представления M08 |
 | Portal: submit, My Requests, status, messages, answer, result | M01 и M06 |
 | Request/field/message/attachment access | База M01; каналы M06; полный профиль M07 |
-| Resolution SLA, Task due time, calendar, pause, warning/breach | M08 |
+| Request Resolution SLA, Task due/SLA, calendar, независимые pause, warning/breach | M08 |
 | Knowledge: collections, editor, publish, permissions, search, Service/Node links | M09 |
 | Audit lifecycle и admin intervention | Lifecycle с M01; полное recovery/intervention M10 |
 
@@ -114,6 +116,8 @@ Budget не является оценкой часов, стоимости ил�
 | Shared queue views и массовое переназначение | [Agent Workspace](docs/product/agent-workspace.md), [роли](docs/product/roles.md) | M10 при уточнении операций команды |
 | Полный список типов/validations формы | [Dynamic forms](docs/architecture/dynamic-forms.md) | Базовый профиль M02; остальные типы — отдельные будущие Slice |
 | First response и Approval SLA | [SLA](docs/architecture/sla.md) | D-19 в M08 |
+| Coordinating responsibility Request | [Request](docs/product/requests.md) | D-23 до M05; escalation recipients до M08 |
+| Controlling public communicator | [Communications](docs/architecture/communications.md) | PROPOSED; D-25 до M05/M06 |
 | Owner-of-reference, expression, round-robin assignment | [Assignment](docs/architecture/task-assignment.md) | Отдельные Slice после минимальных назначений; сроки не утверждены |
 | Least-loaded, absence и delegation | [Assignment](docs/architecture/task-assignment.md) | Вне Milestone Scope M00–M10; ручное переназначение доступно раньше |
 | Subflow и Repeat Block | [Node](docs/architecture/workflow-nodes.md) | D-03 до включения; ранний scope их не предполагает |

@@ -96,6 +96,7 @@ Idempotency hardening в M10 не отменяет защиту повторов
 | Автоматический side effect защищен от дублирования | [Runtime](docs/architecture/workflow-runtime.md) |
 | Audit append-only; privileged actions audited | [Audit](docs/architecture/audit.md) |
 | Public Status не равен внутреннему workflow state | [Состояния](docs/product/statuses.md) |
+| Submitted Request имеет ровно один безопасный Public Status; parallel branches не создают отдельные public statuses Team | [Состояния](docs/product/statuses.md) |
 | Integration secrets не входят в snapshot | [Service Release](docs/architecture/service-release.md) |
 | Publish требует полной валидации поддерживаемого профиля | [Definition](docs/architecture/workflow-definition.md), [вопрос раннего профиля](docs/product/service-designer.md) |
 | ALL, ANY и N_OF_M сохраняют отдельную семантику | [Каталог Node](docs/architecture/workflow-nodes.md) |

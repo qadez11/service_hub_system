@@ -1,6 +1,7 @@
 # Request и пользовательские сценарии
 
-Основание: исходный PRODUCT draft 0.1, разделы 3–4, 10, 12, 22, 25–26, 29, 34, 46–47.
+Основание: исходный PRODUCT draft 0.1, разделы 3–4, 10, 12, 22, 25–26, 29, 34, 46–47;
+контролируемо принятые уточнения Request/Task и coordinating responsibility из коллегиального draft 0.4.
 
 
 ## Одна Request
@@ -14,6 +15,30 @@ Request MUST сохранить ссылку на него на весь сро�
 После создания `Request.service_release` MUST NOT изменяться.
 Правила сохранения этой связи находятся в [Service Release](../architecture/service-release.md).
 Вопрос о привязке черновика отмечен как D-04 в [состояниях](statuses.md).
+
+## Request и Task
+
+Request — общий пользовательский кейс Service.
+Task — отдельная рабочая единица конкретного шага, со своими assignment, claim, результатом и Task SLA.
+Agent Workspace ориентирован прежде всего на Task; Request дает разрешенный контекст и не заменяет очередь Task.
+
+## Coordinating responsibility Request
+
+**ACCEPT_FOR_PRODUCT_SCOPE.** Активная Request должна иметь одну однозначную coordinating responsibility за доведение кейса до результата.
+Она не равна Service Owner и не подменяет ответственность Assignee за конкретную Task.
+Параллельные ветки не создают независимые coordinating responsibilities для одной Request.
+
+Конкретная модель может использовать Request Owner, Coordinating Team или один из этих механизмов.
+Это требование не делает оба поля одновременно обязательными.
+Наличие coordinating responsibility не дает автоматически полный доступ к Request: действуют server-side permissions и safe projections.
+
+Для одной статической Team queue в M01 та же fixed Team может нести минимальную coordinating responsibility.
+Это не требует от M01 отдельного `request_owner`, coordination queue, reassignment, manager-of-requester или expression policy.
+
+> DECISION REQUIRED — D-23: модель coordinating responsibility.
+> Нужно выбрать, представляется ли ответственность user, Team или одним из них; как она фиксируется в правилах Service Release; каковы fallback, reassignment, audit и ACL.
+> Manager of requester, expression, отдельная coordination queue и сложные reassignment rules не входят в M01.
+> Решение нужно до M05; точные SLA escalation recipients и поведение часов — до M08.
 
 ## Действия Requester
 

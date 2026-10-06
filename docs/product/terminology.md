@@ -24,17 +24,21 @@ DECISION REQUIRED обозначает вопрос, который нужно �
 | Workflow Execution | Техническое исполнение Workflow Definition для Request |
 | Node | Узел Workflow Definition со стабильным `node_key` |
 | Node Run | Отдельный запуск Node с состоянием, входом, выходом и попыткой |
-| Task | Внутренняя задача, которую создают Human Task или Approval |
+| Task | Внутренняя рабочая единица, которую создают Human Task или Approval; primary object Agent Workspace |
 | Human Task | Тип Node, который создает Task для исполнителя или очереди |
 | Approval | Тип Node для согласования с решением согласующего |
 | Team | Команда, членство в которой участвует в назначении и проверке доступа |
 | Assignee | Исполнитель, которому назначена Task |
+| Coordinating responsibility | Единая ответственность за доведение Request как кейса до результата; не равна Service Owner или Task Assignee; точная модель — [D-23](requests.md#coordinating-responsibility-request) |
+| Request Owner | Возможное user-представление coordinating responsibility; не обязательно одновременно с Coordinating Team |
+| Coordinating Team | Возможное Team-представление coordinating responsibility; не обязательно одновременно с Request Owner |
 | Public Status | Внешний статус Request, доступный Requester |
 | Internal Status | Внутреннее состояние Request; не заменяет состояния Node Run и Task |
 | SLA | Политика сроков обслуживания и учет ее исполнения |
 | Business Calendar | Часовой пояс, рабочие дни, интервалы, праздники и исключения для учета рабочего времени |
 | Public Message | Сообщение, доступное Requester |
-| Internal Note | Внутренняя заметка, доступная только внутренним участникам с правом |
+| Request-scoped Internal Note | Внутренняя заметка в контексте Request, доступная только участникам Request с явным правом |
+| Task-scoped Internal Note | Внутренняя заметка в контексте Task, доступная только участникам Task с явным правом |
 | Knowledge Article | Статья Knowledge Base с публикацией, историей и правами |
 | Knowledge Base | База знаний, связанная с Service, формами и Task |
 | Workflow Studio | Визуальный редактор Workflow Definition |
@@ -70,7 +74,7 @@ Product Scope → Roadmap → Milestone → Slice → ExecPlan → Implementatio
 - `Service Request` и `Service Task` — предложенные имена DocType для Request и Task.
 - `Article` в исходном разделе Knowledge Base означает Knowledge Article.
 - `public_status` и `internal_status` — имена полей, а не дополнительные сущности.
-- `Public` и `Internal` — типы сообщений; Internal Note относится к внутреннему каналу.
+- Public Message относится к Request; Internal Note всегда имеет request-scoped или task-scoped контекст.
 - `Process Studio` в навигации исходника обозначает Workflow Studio.
 
 Статусы и допустимые результаты перечислены в [едином справочнике состояний](statuses.md).

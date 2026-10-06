@@ -1,6 +1,7 @@
 # PRODUCT — «Единое окно»
 
-Статус: продуктовая модель на основе исходного draft 0.1.
+Статус: текущий структурированный source of truth, основанный на исходном draft 0.1
+и контролируемо принятых уточнениях из коллегиального draft 0.4.
 Документ задает целевой продукт. Он не описывает готовность текущего кода.
 Рабочее название — «Единое окно».
 Технологическая база — Frappe Framework и Frappe UI.
@@ -125,6 +126,7 @@ Requester не обязан знать структуру организации
 
 Request имеет один номер, историю, Public Status, публичную переписку и результат.
 Внутренние Task не становятся отдельными пользовательскими обращениями.
+Для исполнителя Task — основная рабочая единица Agent Workspace; Request остается общим кейсом и контекстом.
 Оценка качества относится к полученной Service.
 
 ### Опубликованные правила стабильны
@@ -142,7 +144,7 @@ Workflow Runtime MUST исполнять Request по Service Release, выбр�
 
 Public Status не равен состоянию workflow.
 Requester получает понятный статус и безопасную историю.
-Node Run, технические ошибки, внутренние Task и Internal Note не раскрываются автоматически.
+Node Run, технические ошибки, внутренние Task и request/task-scoped Internal Note не раскрываются автоматически.
 [Состояния](docs/product/statuses.md) определяют внешний набор и открытые вопросы mapping.
 
 ### Доступ проверяет сервер
@@ -196,6 +198,7 @@ Requester видит свои Request, статус, сообщения и ре�
 ### Agent Workspace
 
 Исполнитель работает с очередями Task.
+Очередь Task — primary surface исполнения; Request открывается как разрешенный контекст кейса.
 Он видит разрешенные данные и доступные действия.
 Менеджер управляет назначениями и загрузкой.
 Внутренняя диагностика отделена от страницы Requester.
@@ -256,7 +259,8 @@ Service может запросить CSAT после успешного зав�
 [Request](docs/product/requests.md) определяет формат обратной связи.
 
 Сроки зависят от SLA и Business Calendar.
-Ожидание Requester может приостанавливать SLA по политике.
+Request Resolution SLA и Task SLA — отдельные часы.
+Ожидание Requester может приостанавливать Resolution SLA по политике; внутреннее ожидание между Team не приостанавливает его автоматически.
 Полный контракт и открытые вопросы находятся в [SLA](docs/architecture/sla.md).
 
 ## Существующее корпоративное приложение
@@ -321,6 +325,8 @@ Performance и scale оцениваются на согласованном пр
 | Группа | Источник |
 |---|---|
 | Статусы, черновик Request, подтверждение и отмена | [Состояния](docs/product/statuses.md), [Request](docs/product/requests.md) |
+| Coordinating responsibility Request | [Request](docs/product/requests.md), [роли](docs/product/roles.md) |
+| Public/request-scoped/task-scoped communication и контроль public communication | [Communications](docs/architecture/communications.md) |
 | Формат графа и expressions | [ADR-003](docs/adr/ADR-003-workflow-definition-format.md), [Definition](docs/architecture/workflow-definition.md) |
 | Join, коллективное Approval, циклы и Subflow | [Node](docs/architecture/workflow-nodes.md) |
 | Ранний профиль публикации и ссылки snapshot | [Designer](docs/product/service-designer.md), [Service Release](docs/architecture/service-release.md) |
